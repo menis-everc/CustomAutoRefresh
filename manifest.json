@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Custom Auto Refresher",
+    "name": "Custom URL Auto Refresher",
     "description": "Extension that automatically refreshes a tab on a fully customizable interval.",
     "version": "2.4.0",
     "icons": {
@@ -17,6 +17,7 @@
         "<all_urls>"
     ],
     "permissions": [
-        "scripting"
+        "scripting",
+        "storage"
     ]
 }

@@ -79,4 +79,23 @@ document.addEventListener('DOMContentLoaded', function () {
     activateListeners();
     updatePopup();
     document.getElementById("interval").focus();
+    // Load and display saved patterns and default interval
+    const patternTextarea = document.getElementById('patternList');
+    const saveBtn = document.getElementById('savePatterns');
+    chrome.storage.sync.get({ patterns: [], defaultInterval: 5 }, (data) => {
+        patternTextarea.value = data.patterns.join('\n');
+        // Only set interval if popup interval is empty
+        if (!document.getElementById('interval').value) {
+            document.getElementById('interval').value = data.defaultInterval;
+        }
+    });
+    // Save patterns and default interval
+    saveBtn.addEventListener('click', () => {
+        const lines = patternTextarea.value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+        const di = parseFloat(document.getElementById('interval').value) || 5;
+        chrome.storage.sync.set({ patterns: lines, defaultInterval: di }, () => {
+            saveBtn.textContent = 'Saved';
+            setTimeout(() => { saveBtn.textContent = 'Save Patterns'; }, 1000);
+        });
+    });
 }, false);

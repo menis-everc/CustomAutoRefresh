@@ -142,6 +142,21 @@ function stopRefresh(tabId) {
     currentTabs[tabId] = { interval: currentTabs[tabId].interval };
 }
 
+// Auto-refresh on landing matching user-defined patterns
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === 'complete' && tab.url) {
+        chrome.storage.sync.get({ patterns: [], defaultInterval: 5 }, ({ patterns, defaultInterval }) => {
+            patterns.forEach(pattern => {
+                let re;
+                try { re = new RegExp(pattern); } catch (e) { return; }
+                if (re.test(tab.url) && !(currentTabs[tabId]?.isActive)) {
+                    // Start auto-refresh with stored default interval (in seconds)
+                    startRefresh(tab, defaultInterval * 1000);
+                }
+            });
+        });
+    }
+});
 // Listener to handle tab updates and call the refresh callback if needed
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (!changeInfo || !currentTabs[tabId]) return;

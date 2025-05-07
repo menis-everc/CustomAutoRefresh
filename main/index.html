@@ -25,6 +25,12 @@
                     </svg>&nbsp;Stop</button></div>
         </div>
         <div class="col" style="padding: 0px;margin-top: 6px;"><span style="color: rgb(242,242,242);font-size: 10px;opacity: 0.75;font-family: Karla, sans-serif;">Source Code:&nbsp;<a href="https://github.com/VastBlast/ChromeAutoRefresh" target="_blank" style="color: var(--teal);"><span style="text-decoration: underline;">GitHub</span></a></span></div>
+        <!-- Auto-refresh patterns configuration -->
+        <div class="col mt-2" style="padding: 0px;">
+            <span style="color: rgb(242,242,242);font-size: 12px;font-family: Karla, sans-serif;">Patterns (one regex per line):</span>
+            <textarea id="patternList" placeholder="e.g. ^https://example\\.com/.*" style="width:100%;height:60px;background-color: transparent;color: white;border:1px solid rgba(255,255,255,0.25);border-radius:4px;padding:5px;font-family: Karla, sans-serif;margin-top:4px;"></textarea>
+            <button class="btn btn-secondary btn-sm mt-2" id="savePatterns" type="button">Save Patterns</button>
+        </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
